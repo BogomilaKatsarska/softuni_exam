@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <section id="recipe-details">
+        <h1>Recipe Details</h1>
+        <div class="info-section">
+            <div class="recipe-header">
+                {% if recipe.image_url %}
+                    <img
+                            class="recipe-img"
+                            src="{{ recipe.image_url }}"
+                            alt="recipe image"
+                    />
+                {% else %}
+                    <img
+                            class="recipe-img"
+                            src="{% static "images/default_recipe_img.png" %}"
+                            alt="recipe image"
+                    />
+                {% endif %}
+
+                <h1>{{ recipe.title }}</h1>
+                <p><span class="description-recipe">Cuisine Type: {{ recipe.cuisine_type }}</span></p>
+                <p><span class="description-recipe">Cooking Time: {{ recipe.cooking_time }}min.</span></p>
+                <div class="ingredients">
+                    <p><span class="description-recipe">Ingredients:</span></p>
+                    {% for ingredient in all_ingredients %}
+                        <ul>
+                            <li>{{ ingredient }}</li>
+                        </ul>
+                    {% endfor %}
+                </div>
+                <p>
+              <span class="description-recipe"
+              >Instructions: {{ recipe.instructions }}</span
+              >
+                </p>
+            </div>
+
+            <div class="buttons">
+                <a href="{% url 'recipe edit' pk=recipe.pk %}" class="edit-button">Edit</a>
+                <a href="{% url 'recipe delete' pk=recipe.pk %}" class="delete-button">Delete</a>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
